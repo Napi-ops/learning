@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import cv2
 
-rawimg = cv2.imread(r"E:\OCR\OCR_Test\pp.jpg")
+rawimg = cv2.imread(r"E:\OCR\OCR_Test\p_2.jpg")
 fig = plt.figure(figsize=(10,15))
 fig.add_subplot(2,3,1)
 plt.title("raw image")
@@ -82,6 +82,6 @@ plt.title("x boudary deleted")
 for i,img in enumerate(img_list):
     fig.add_subplot(3,4,i+1)
     plt.imshow(img)
-    plt.imsave(r"E:\OCR\OCR_Test\%s.jpg"%i,img)
+    plt.imsave(r"E:\OCR\OCR_Test\output_2\%s.jpg"%i,img)
 
 plt.show()
