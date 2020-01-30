@@ -4,7 +4,7 @@ import pytesseract
 import numpy as np
 import cv2
 
-rawimg = cv2.imread(r"E:\OCR\OCR_Test\p_5.jpg")
+rawimg = cv2.imread(r"E:\OCR\OCR_Test\samples\2.jpg")
 fig = plt.figure(figsize=(10,15))
 fig.add_subplot(2,3,1)
 plt.title("raw image")
