@@ -1,10 +1,10 @@
-#Napi's Learing Repository!
+# Napi's Learing Repository!
 
 用于保存各种代码的一个仓库。
 主要为学习内容。
 
-##Update Process
-###2019.11.12
+## Update Process
+### 2019.11.12
 耗时许久的QuickSort终于完成啦！
 当然还是借鉴了一些大佬的代码。
 例如good_codes里的QuickSort代码。
