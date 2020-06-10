@@ -7,7 +7,7 @@ import json
 import time
 import base64
 from tkinter import *
-from PIL import Image,ImageTk
+from PIL import Image,ImageTk,ImageDraw,ImageFont
 
 IS_PY3 = sys.version_info.major == 3
 if IS_PY3:
@@ -75,19 +75,6 @@ def fetch_token():
         print ('please overwrite the correct API_KEY and SECRET_KEY')
         exit()
 
-#读取图片
-def read_file(image_path):
-    f = None
-    try:
-        f = open(image_path, 'rb')
-        return f.read()
-    except:
-        print('read image file fail')
-        return None
-    finally:
-        if f:
-            f.close()
-
 #得到识别文本
 def request(url, data):
     req = Request(url, data.encode('utf-8'))
@@ -118,10 +105,12 @@ def calculator_mode2(result):
         if ch=='=':
             break
         index=index+1
-    if eval(result.slice[:index])==eval(result.slice[index+1:]):
-        return True
+    if (index+1)==len(result):
+        return '×'
+    if (eval(result[:index])==int(result[index+1:])):
+        return '√'
     else:
-        return False
+        return '×'
         
 #做题模式
 def run_mode1():
@@ -149,7 +138,7 @@ def run_mode1():
         winNew.geometry('500x500')
         winNew.title('确认界面')
         
-        lb2=Label(winNew,text='确认是下面图像吗？',fg='black',font=('华文新魏',32),width=20,height=2,relief=FLAT)
+        lb2=Label(winNew,text='确认是以下图像吗？',fg='black',font=('华文新魏',32),width=20,height=2,relief=FLAT)
         lb2.pack()
         
         lb3=Label(winNew,image=img)
@@ -203,7 +192,7 @@ def run_mode2():
         winNew.geometry('500x500')
         winNew.title('确认界面')
         
-        lb2=Label(winNew,text='确认是下面图像吗？',fg='black',font=('华文新魏',32),width=20,height=2,relief=FLAT)
+        lb2=Label(winNew,text='确认是以下图像吗？',fg='black',font=('华文新魏',32),width=20,height=2,relief=FLAT)
         lb2.pack()
         
         lb3=Label(winNew,image=img)
@@ -242,12 +231,15 @@ def run_identify():
         image_url = OCR_URL + "?access_token=" + token
         
         #调用API返回识别结果
-        file_content = read_file(r'E:\OCR\OCR_Test\pictures\%s.jpg'%pict)
+        f=open(r'E:\OCR\OCR_Test\pictures\%s.jpg'%pict,'rb')     
+        file_content = f.read()
+        f.close()
         result = request(image_url, urlencode({'image': base64.b64encode(file_content)}))
         result_json = json.loads(result)
         
         if mode==1:
             #将识别结果保存在文本中(做题模式)
+            #保存答案
             f=open(r"E:\OCR\OCR_Test\output\output.txt","w")
             for words_result in result_json["words_result"]:
                 f.write(words_result["words"])
@@ -255,6 +247,7 @@ def run_identify():
                     f.write(str(calculator_mode1(words_result["words"])))
                 f.write("\n")
             f.close()
+            #保存答案位置
             f=open(r"E:\OCR\OCR_Test\output\location.txt","w")
             f.write("x,y,height:\n")
             for words_result in result_json["words_result"]:
@@ -265,9 +258,26 @@ def run_identify():
                 f.write(str(words_result["location"]["height"]))
                 f.write("\n")
             f.close()
+            #得到含有答案的图片
+            image=Image.open(r'E:\OCR\OCR_Test\pictures\%s.jpg'%pict)
+            draw=ImageDraw.Draw(image)
+            font=ImageFont.truetype(r'C:\Users\123\Downloads\font.ttf',200)
+            fillcolor="#000000"
+            width,height=image.size
+            for words_result in  result_json["words_result"]:
+                if calculator_mode1(words_result["words"])!=None:
+                    draw.text((words_result["location"]["width"]+words_result["location"]["left"],words_result["location"]["top"]),str(calculator_mode1(words_result["words"])),fill=fillcolor,font=font)
+            image.save(r'E:\OCR\OCR_Test\output\result_img.jpg')
+            newImage=Image.new('RGB',image.size,(255,255,255))
+            newDraw=ImageDraw.Draw(newImage)
+            for words_result in  result_json["words_result"]:
+                if calculator_mode1(words_result["words"])!=None:
+                    newDraw.text((words_result["location"]["width"]+words_result["location"]["left"],words_result["location"]["top"]),str(calculator_mode1(words_result["words"])),fill=fillcolor,font=font)
+            newImage.save(r'E:\OCR\OCR_Test\output\result_img_blank.jpg')
                
         elif mode==2:
             #将识别结果保存在文本中(批改模式)
+            #保存答案
             f=open(r"E:\OCR\OCR_Test\output\output.txt","w")
             for words_result in result_json["words_result"]:
                 f.write(words_result["words"])
@@ -275,6 +285,7 @@ def run_identify():
                     f.write(calculator_mode2(words_result["words"]))
                 f.write("\n")
             f.close()
+            #保存答案位置
             f=open(r"E:\OCR\OCR_Test\output\location.txt","w")
             f.write("x,y,height:\n")
             for words_result in result_json["words_result"]:
@@ -285,6 +296,22 @@ def run_identify():
                 f.write(str(words_result["location"]["height"]))
                 f.write("\n")
             f.close()
+            #得到含有答案的图片
+            image=Image.open(r'E:\OCR\OCR_Test\pictures\%s.jpg'%pict)
+            draw=ImageDraw.Draw(image)
+            font=ImageFont.truetype(r'C:\Windows\Fonts\Arial.ttf',300)
+            fillcolor="#000000"
+            width,height=image.size
+            for words_result in  result_json["words_result"]:
+                if calculator_mode2(words_result["words"])!=None:
+                    draw.text((words_result["location"]["width"]+words_result["location"]["left"],words_result["location"]["top"]),str(calculator_mode2(words_result["words"])),fill=fillcolor,font=font)
+            image.save(r'E:\OCR\OCR_Test\output\result_img.jpg')
+            newImage=Image.new('RGB',image.size,(255,255,255))
+            newDraw=ImageDraw.Draw(newImage)
+            for words_result in  result_json["words_result"]:
+                if calculator_mode2(words_result["words"])!=None:
+                    newDraw.text((words_result["location"]["width"]+words_result["location"]["left"],words_result["location"]["top"]),str(calculator_mode2(words_result["words"])),fill=fillcolor,font=font)
+            newImage.save(r'E:\OCR\OCR_Test\output\result_img_blank.jpg')
            
     except:
         winError=Toplevel(root)
@@ -328,10 +355,10 @@ if __name__ == '__main__':
     root.title('开始界面')
     root.geometry('500x500')
 
-    lb=Label(root,text='使用说明',fg='black',font=('华文新魏',32),width=20,height=2,relief=FLAT)
+    lb=Label(root,text='注意事项',fg='black',font=('华文新魏',32),width=20,height=2,relief=FLAT)
     lb.pack()
 
-    mes=Message(root,text='1、拍摄照片后再选择\n模式\n2、尽量使文字水平\n3、拍照前确保当前设\n备相册中无照片',fg='black',font=('华文新魏',24),width=500,relief=FLAT)
+    mes=Message(root,text='1、拍照前确保当前设\n备相册中无照片\n2、拍摄照片后再选择\n模式\n3、尽量使文字水平,\n光线良好',fg='black',font=('华文新魏',24),width=500,relief=FLAT)
     mes.place(relx=0.2,y=80,relheight=0.4,width=300)
 
     but_mode1=Button(root,text='做题模式',command=run_mode1)
