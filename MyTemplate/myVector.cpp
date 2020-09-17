@@ -17,7 +17,6 @@ public:
 	int indexOf(const Elemtype& element) const;
 	void insert(int index, const Elemtype& element);
 	void push_back(const Elemtype& element);
-	void erase(const Elemtype& element);
 	void erase(int index);
 	void output() const;
 
@@ -114,17 +113,6 @@ void myVector::erase(int index)
 {
 	checkIndex(index);
 	for (int i = index; i != length-1; ++i)
-	{
-		elem[i] = elem[i + 1];
-	}
-	--length;
-}
-
-void myVector::erase(const Elemtype& element)
-{
-	int index = indexOf(element);
-	checkIndex(index);
-	for (int i = index; i != length - 1; ++i)
 	{
 		elem[i] = elem[i + 1];
 	}
