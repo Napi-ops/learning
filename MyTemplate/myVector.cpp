@@ -8,6 +8,7 @@ class myVector
 {
 public:
 	myVector(int initsize);
+	myVector(const myVector&);
 	~myVector() { delete[] elem; }
 
 	void clear();
@@ -44,7 +45,7 @@ void addListSize(Elemtype* elem, int oldsize, int newsize)
 
 void myVector::checkIndex(int index) const
 {
-	if (index<0 || index>=length)
+	if (index < 0 || index >= length)
 	{
 		throw out_of_range("This index is out of range");
 	}
@@ -62,6 +63,17 @@ myVector::myVector(int initsize)
 	}
 	length = 0;
 	listsize = initsize;
+}
+
+myVector::myVector(const myVector& vector)
+{
+	length = vector.length;
+	listsize = vector.listsize;
+	elem = new Elemtype[listsize];
+	for (int i = 0; i != length; ++i)
+	{
+		elem[i] = vector.elem[i];
+	}
 }
 
 void myVector::clear()
@@ -112,7 +124,7 @@ void myVector::insert(int index, const Elemtype& element)
 void myVector::erase(int index)
 {
 	checkIndex(index);
-	for (int i = index; i != length-1; ++i)
+	for (int i = index; i != length - 1; ++i)
 	{
 		elem[i] = elem[i + 1];
 	}
@@ -131,6 +143,5 @@ void myVector::output() const
 		cout << elem[i] << endl;
 	}
 }
-
 
 

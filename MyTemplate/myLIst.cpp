@@ -11,13 +11,14 @@ struct chainNode
 
 	chainNode() {};
 	chainNode(const Elemtype& element) : elem(element) {}
-	chainNode(const Elemtype& element, chainNode* next): elem(element),next(next) {}
+	chainNode(const Elemtype& element, chainNode* next) : elem(element), next(next) {}
 };
 
 class myList
 {
 public:
 	myList(int initsize = 10);
+	myList(const myList&);
 	~myList();
 
 	void clear();
@@ -48,6 +49,29 @@ myList::myList(int initsize)
 {
 	firstNode = NULL;
 	length = 0;
+}
+
+myList::myList(const myList& list)
+{
+	length = list.length;
+	if (length == 0)
+	{
+		firstNode = NULL;
+	}
+	else
+	{
+		firstNode = new chainNode(list.firstNode->elem);
+		chainNode* curNode = list.firstNode;
+		chainNode* tarNode = firstNode;
+		curNode = curNode->next;
+		while (curNode != NULL)
+		{
+			tarNode->next = new chainNode(curNode->elem);
+			tarNode = tarNode->next;
+			curNode = curNode->next;
+		}
+		tarNode->next = NULL;
+	}
 }
 
 myList::~myList()
@@ -107,7 +131,7 @@ void myList::insert(int index, const Elemtype& element)
 	}
 	else
 	{
-		for (int i = 0; i != index-1; ++i)
+		for (int i = 0; i != index - 1; ++i)
 		{
 			curNode = curNode->next;
 		}
@@ -152,3 +176,4 @@ void myList::output() const
 		curNode = curNode->next;
 	}
 }
+

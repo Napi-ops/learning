@@ -12,13 +12,14 @@ struct chainNode
 
 	chainNode() {};
 	chainNode(const Elemtype& element) : elem(element) {}
-	chainNode(const Elemtype& element, chainNode* prior, chainNode* next): elem(element),prior(prior),next(next) {}
+	chainNode(const Elemtype& element, chainNode* prior, chainNode* next) : elem(element), prior(prior), next(next) {}
 };
 
 class myList_Dul
 {
 public:
 	myList_Dul(int initsize = 10);
+	myList_Dul(const myList_Dul&);
 	~myList_Dul();
 
 	void clear();
@@ -49,6 +50,31 @@ myList_Dul::myList_Dul(int initsize)
 {
 	firstNode = NULL;
 	length = 0;
+}
+
+myList_Dul::myList_Dul(const myList_Dul& list)
+{
+	length = list.length;
+	if (length == 0)
+	{
+		firstNode = NULL;
+	}
+	else
+	{
+		firstNode = new chainNode(list.firstNode->elem);
+		firstNode->prior = NULL;
+		chainNode* curNode = list.firstNode;
+		chainNode* tarNode = firstNode;
+		curNode = curNode->next;
+		while (curNode != NULL)
+		{
+			tarNode->next = new chainNode(curNode->elem);
+			tarNode->next->prior = tarNode;
+			tarNode = tarNode->next;
+			curNode = curNode->next;
+		}
+		tarNode->next = NULL;
+	}
 }
 
 myList_Dul::~myList_Dul()
@@ -112,7 +138,7 @@ void myList_Dul::insert(int index, const Elemtype& element)
 	}
 	else
 	{
-		for (int i = 0; i != index-1; ++i)
+		for (int i = 0; i != index - 1; ++i)
 		{
 			curNode = curNode->next;
 		}
