@@ -4,12 +4,12 @@
 using namespace std;
 using Elemtype = int;
 
-class myVector
+class vector
 {
 public:
-	myVector(int initsize);
-	myVector(const myVector&);
-	~myVector() { delete[] elem; }
+	vector(int initsize);
+	vector(const vector&);
+	~vector() { delete[] elem; }
 
 	void clear();
 	bool empty() const { return length == 0; }
@@ -43,7 +43,7 @@ void addListSize(Elemtype* elem, int oldsize, int newsize)
 	elem = temp;
 }
 
-void myVector::checkIndex(int index) const
+void vector::checkIndex(int index) const
 {
 	if (index < 0 || index >= length)
 	{
@@ -51,7 +51,7 @@ void myVector::checkIndex(int index) const
 	}
 }
 
-myVector::myVector(int initsize)
+vector::vector(int initsize)
 {
 	if (initsize < 1)
 	{
@@ -65,7 +65,7 @@ myVector::myVector(int initsize)
 	listsize = initsize;
 }
 
-myVector::myVector(const myVector& vector)
+vector::vector(const vector& vector)
 {
 	length = vector.length;
 	listsize = vector.listsize;
@@ -76,7 +76,7 @@ myVector::myVector(const myVector& vector)
 	}
 }
 
-void myVector::clear()
+void vector::clear()
 {
 	for (int i = 0; i != length; ++i)
 	{
@@ -84,13 +84,13 @@ void myVector::clear()
 	}
 }
 
-Elemtype& myVector::get(int index) const
+Elemtype& vector::get(int index) const
 {
 	checkIndex(index);
 	return elem[index];
 }
 
-int myVector::indexOf(const Elemtype& element) const
+int vector::indexOf(const Elemtype& element) const
 {
 	for (int i = 0; i != length; ++i)
 	{
@@ -102,7 +102,7 @@ int myVector::indexOf(const Elemtype& element) const
 	return -1;
 }
 
-void myVector::insert(int index, const Elemtype& element)
+void vector::insert(int index, const Elemtype& element)
 {
 	if (index < 0 || index > length)
 	{
@@ -121,7 +121,7 @@ void myVector::insert(int index, const Elemtype& element)
 	++length;
 }
 
-void myVector::erase(int index)
+void vector::erase(int index)
 {
 	checkIndex(index);
 	for (int i = index; i != length - 1; ++i)
@@ -131,12 +131,12 @@ void myVector::erase(int index)
 	--length;
 }
 
-void myVector::push_back(const Elemtype& element)
+void vector::push_back(const Elemtype& element)
 {
 	insert(length, element);
 }
 
-void myVector::output() const
+void vector::output() const
 {
 	for (int i = 0; i != length; ++i)
 	{

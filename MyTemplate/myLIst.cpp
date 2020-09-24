@@ -14,12 +14,12 @@ struct chainNode
 	chainNode(const Elemtype& element, chainNode* next) : elem(element), next(next) {}
 };
 
-class myList
+class list
 {
 public:
-	myList(int initsize = 10);
-	myList(const myList&);
-	~myList();
+	list(int initsize = 10);
+	list(const list&);
+	~list();
 
 	void clear();
 	bool empty() const { return length == 0; }
@@ -37,7 +37,7 @@ private:
 	int length;
 };
 
-void myList::checkIndex(int index) const
+void list::checkIndex(int index) const
 {
 	if (index < 0 || index >= length)
 	{
@@ -45,13 +45,13 @@ void myList::checkIndex(int index) const
 	}
 }
 
-myList::myList(int initsize)
+list::list(int initsize)
 {
 	firstNode = NULL;
 	length = 0;
 }
 
-myList::myList(const myList& list)
+list::list(const list& list)
 {
 	length = list.length;
 	if (length == 0)
@@ -74,7 +74,7 @@ myList::myList(const myList& list)
 	}
 }
 
-myList::~myList()
+list::~list()
 {
 	while (firstNode != NULL)
 	{
@@ -84,7 +84,7 @@ myList::~myList()
 	}
 }
 
-void myList::clear()
+void list::clear()
 {
 	chainNode* curNode = firstNode;
 	while (curNode != NULL)
@@ -94,7 +94,7 @@ void myList::clear()
 	}
 }
 
-Elemtype& myList::get(int index) const
+Elemtype& list::get(int index) const
 {
 	checkIndex(index);
 	chainNode* curNode = firstNode;
@@ -105,7 +105,7 @@ Elemtype& myList::get(int index) const
 	return curNode->elem;
 }
 
-int myList::indexOf(const Elemtype& element) const
+int list::indexOf(const Elemtype& element) const
 {
 	chainNode* curNode = firstNode;
 	for (int i = 0; i != length; ++i)
@@ -118,7 +118,7 @@ int myList::indexOf(const Elemtype& element) const
 		return -1;
 }
 
-void myList::insert(int index, const Elemtype& element)
+void list::insert(int index, const Elemtype& element)
 {
 	if (index < 0 || index > length)
 	{
@@ -140,12 +140,12 @@ void myList::insert(int index, const Elemtype& element)
 	++length;
 }
 
-void myList::push_back(const Elemtype& element)
+void list::push_back(const Elemtype& element)
 {
 	insert(length, element);
 }
 
-void myList::erase(int index)
+void list::erase(int index)
 {
 	chainNode* curNode = firstNode;
 	chainNode* deleteNode;
@@ -167,7 +167,7 @@ void myList::erase(int index)
 	delete deleteNode;
 }
 
-void myList::output() const
+void list::output() const
 {
 	chainNode* curNode = firstNode;
 	while (curNode != NULL)
