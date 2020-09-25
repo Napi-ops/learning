@@ -80,7 +80,7 @@ void vector::clear()
 {
 	for (int i = 0; i != length; ++i)
 	{
-		elem[i] = 0;
+		elem[i].~Elemtype();
 	}
 }
 

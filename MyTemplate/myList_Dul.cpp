@@ -92,7 +92,7 @@ void list::clear()
 	chainNode* curNode = firstNode;
 	while (curNode != NULL)
 	{
-		curNode->elem = 0;
+		curNode->elem.~Elemtype();
 		curNode = curNode->next;
 	}
 }
