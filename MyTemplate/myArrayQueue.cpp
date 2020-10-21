@@ -4,12 +4,6 @@
 using namespace std;
 using Elemtype = int;
 
-#include <iostream>
-#include <stdexcept>
-
-using namespace std;
-using Elemtype = int;
-
 class queue
 {
 public:

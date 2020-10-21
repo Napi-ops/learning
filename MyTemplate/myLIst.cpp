@@ -53,7 +53,7 @@ list::list(int initsize)
 
 list::list(const list& list)
 {
-	length = list.length;
+	length = list.size();
 	if (length == 0)
 	{
 		firstNode = NULL;
