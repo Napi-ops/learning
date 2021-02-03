@@ -1,34 +1,17 @@
 # Napi's Learing Repository!
 
-用于保存各种代码的一个仓库。
-主要为学习内容。
+#### MyPractice Part
 
-## Update Process
+​	It will contain all my OJ code and mini projects written in college. At present it includes my code written in  2019 autumn, 2020 spring and 2020 autumn. Among these codes I think the Assembler and Huffman Compress are quite ininteretsing. You can see them in 2020 autumn code.
 
-### 2019.11.12
-耗时许久的QuickSort终于完成啦!
-当然还是借鉴了一些大佬的代码。
-例如good_codes里的QuickSort代码。
-排版简洁明了，值得学习。
-***
-### 2019.11.14
-关于opencv的环境终于搞定了！
-这次上传了一些网上找的文字识别的相关代码。
-***
-### 2019.11.17
-用markdown编辑文件
-***
-### 2020.1.7
-增删了一些内容。
-新年里的第一次更新。
-***
-### 2020.1.23
-更新了OCR文件中内容
-***
-### 2020.2.10
-更新了OCR文件中内容，OCR项目终于快做完了.重写了md文件，美化下界面。
-***
-### 2020.6.10
-修改了部分文件名，加入了本学期OJ上的代码，可以参考一下。
-OCR项目已做完（但貌似没什么用qwq）
-***
+#### MyTemplate Part
+
+​	It has some simple data structure templates written in c++. In 2020 autumn I have the Data Structure Class, but in this class we just use the c pesudo code. So I want to write my own templates in c++ to improve myself. And, it's also a cool thing I think. I will also keep updating it.
+
+#### OCR_Test Part
+
+​	Well, it's a project that I should finnish in 2020 spring. I do finish the code in 2020 spring festival and it works quite good. But due to the pandemic, we have to take the online class for an entire semester. And my tutor seems to be out of contact. So ... this project is abandoned. But I have to say it's a really amzing project. Originally in this project I want to make a machine which can help us with our homework. You just need to put your homework in this machine and sleep for a while, and when you wake up, your homework has already been finished. I write the code which can scan the homework and print the answer in the image. And I also find the machine that can write word as a human write it in TaoBao. But our tutor, he just disappeared... All in all, maybe one day in the future I will finish the prohect myself. And, I really learn a lot from this project.
+
+#### Snake(FPGA) Part
+
+​	It's another interesting project that I finished in 2020 autumn. It's a game that can played in a monitor. But you should first write the bitstream in FPGA, because I write it in Verilog HDL. I didn't finish it all my own. In fact I refer to some code in CSDN. But I didn't copy any code. All these code were written word by word. This project is a little difficult and it costs me almost a week. But I do learn a lot from it, such as how the VGA works and how too use the FPGA. From this project I also have a better understanding of Verilog (Although I have to say Veribug is really a junk). 
