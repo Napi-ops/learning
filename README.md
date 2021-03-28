@@ -15,3 +15,8 @@
 #### Snake(FPGA) Part
 
 ​	It's another interesting project that I finished in 2020 autumn. It's a game that can played in a monitor. But you should first write the bitstream in FPGA, because I write it in Verilog HDL. I didn't finish it all my own. In fact I refer to some code in CSDN. But I didn't copy any code. All these code were written word by word. This project is a little difficult and it costs me almost a week. But I do learn a lot from it, such as how the VGA works and how too use the FPGA. From this project I also have a better understanding of Verilog (Although I have to say Veribug is really a junk). 
+
+#### HuaWei_Competiton_2021 Part
+
+​	During 2021.3.14~2021.3.27 I joined a match organized by Huawei(You can see it in [here](https://competition.huaweicloud.com/codecraft2021#introduction)(I'm not sure whether it's still effective now)). And from this competition I really learn a lot, although our group didn't get a good rank. I write my experience in this part's document so in here I don't want to say too much. You can find my whole process in this part.
+
